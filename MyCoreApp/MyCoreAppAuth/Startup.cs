@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using MyCoreAppAuth.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MySql.Data.EntityFrameworkCore.Extensions;
 
 namespace MyCoreAppAuth
 {
@@ -34,10 +35,18 @@ namespace MyCoreAppAuth
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            /**************************Sql ServerConnection **************************/
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("DefaultConnection")));
 
+            /**************************MySql Server Connection **************************/
+            //Install-Package MySql.Data.EntityFrameworkCore -Version 8.0.13
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
+                options.UseMySQL(
                     Configuration.GetConnectionString("DefaultConnection")));
+
+
             services.AddDefaultIdentity<IdentityUser>()
                 .AddDefaultUI(UIFramework.Bootstrap4)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
