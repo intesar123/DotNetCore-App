@@ -1,11 +1,8 @@
+E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.dll
+E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.Views.dll
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.deps.json
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.runtimeconfig.json
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.runtimeconfig.dev.json
-E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.dll
-E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.pdb
-E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.Views.dll
-E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.Views.pdb
-E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.csprojAssemblyReference.cache
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.csproj.CoreCompileInputs.cache
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.RazorAssemblyInfo.cache
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.RazorAssemblyInfo.cs
@@ -29,4 +26,7 @@ E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAp
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.Views.pdb
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.dll
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.pdb
+E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.pdb
+E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.Views.pdb
+E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.csprojAssemblyReference.cache
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.csproj.CopyComplete

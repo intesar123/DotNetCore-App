@@ -36,15 +36,15 @@ namespace MyCoreAppAuth
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
             /**************************Sql ServerConnection **************************/
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("AppConn")));
 
             /**************************MySql Server Connection **************************/
             //Install-Package MySql.Data.EntityFrameworkCore -Version 8.0.13
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseMySQL(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseMySQL(
+            //        Configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddDefaultIdentity<IdentityUser>()
@@ -68,7 +68,20 @@ namespace MyCoreAppAuth
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+           /*********************************************Custom Middlewares****************************************************/
+            //app.Use(async (context, next) => {
+            //    //login to perform on request
+            //    await context.Response.WriteAsync("<p>Hello Middleware 1</p>");
+            //    await next();//--------------- it is used to transfer request control to next middlewares
+            //    //login to perform on response
+            //});
+            //app.Use(async (context, next) => {
+            //    //login to perform on request
+            //    await context.Response.WriteAsync("<p>Hello Middleware 2</p>");
+            //    await next();
+            //    //login to perform on response
+            //});
+            /*********************************************End Custom Middlewares****************************************************/
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
