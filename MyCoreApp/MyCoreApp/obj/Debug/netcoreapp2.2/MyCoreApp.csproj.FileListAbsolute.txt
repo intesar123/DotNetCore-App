@@ -30,3 +30,4 @@ E:\myGit\DotNetCore-App\MyCoreApp\MyCoreApp\obj\Debug\netcoreapp2.2\MyCoreApp.Vi
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreApp\obj\Debug\netcoreapp2.2\MyCoreApp.dll
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreApp\obj\Debug\netcoreapp2.2\MyCoreApp.pdb
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreApp\obj\Debug\netcoreapp2.2\MyCoreApp.csproj.CopyComplete
+E:\myGit\DotNetCore-App\MyCoreApp\MyCoreApp\obj\Debug\netcoreapp2.2\Razor\Views\Shared\Index.g.cshtml.cs
