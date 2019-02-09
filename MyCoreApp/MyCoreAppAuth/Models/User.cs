@@ -15,7 +15,7 @@ namespace MyCoreAppAuth.Models
         public User AuthenticateUser(User user)
         {
             User userVal = null;
-            if (user.Name == "Intesar" && user.Password == "1234")
+            if (user.Email == "alam.kir@gmail.com" && user.Password == "Hello@123")
             {
                 userVal = new User { FullName = "Intesar Alam", Name = user.Name, Email = "alam.kir@gmail.com" };
             }

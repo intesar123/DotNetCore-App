@@ -12,10 +12,10 @@ namespace MyCoreApp.Controllers
 {
     public class TestController : Controller
     {
-        public async Task Index()
+        public async Task<JsonResult> Index()
         {
-            string url = "https://localhost:44324/api/Login";
-
+            string url = "https://localhost:44314/api/Login";
+            var result = "" ;
             //var values = new Dictionary<string, string>
             //{
             //  {"Name", "Intesar"},
@@ -39,19 +39,21 @@ namespace MyCoreApp.Controllers
                     //values.Add(new KeyValuePair<string, string>("Name", "Intesar"));
                     //values.Add(new KeyValuePair<string, string>("Password", "1234"));
 
-                    httpContent.Content = new StringContent("{ \"Name\": \"Intesar\", \"Password\": \"1234\" }" , Encoding.UTF8, "application/json");
+                    httpContent.Content = new StringContent("{ \"Email\": \"alam.kir@gmail.com\", \"Password\": \"Hello@123\" }" , Encoding.UTF8, "application/json");
                     //httpContent.
 
                     HttpResponseMessage response = await  client.SendAsync(httpContent);
 
                     // here is the hash as string
-                    var result = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(result);
+                     result = await response.Content.ReadAsStringAsync();
+                  //  Console.WriteLine(result);
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex.ToString()); //"Invalid URI: The Uri string is too long."
                 }
+                return  Json(result);
+
             }
             
         }

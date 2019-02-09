@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -18,24 +19,65 @@ namespace MyCoreAppAuth.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
+        //https://medium.com/@ozgurgul/asp-net-core-2-0-webapi-jwt-authentication-with-identity-mysql-3698eeba6ff8
+        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<IdentityUser> _userManager;
         // GET: api/<controller>
         private IConfiguration _config;
-        public LoginController(IConfiguration config)
+        public LoginController(UserManager<IdentityUser> userManager,
+            SignInManager<IdentityUser> signInManager,
+            IConfiguration configuration)
         {
-            _config = config;
+            _config = configuration;
+            _signInManager = signInManager;
+            _userManager = userManager;
         }
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult Login([FromBody]User Login)
+        public async Task<object> Login([FromBody]User Login)
         {
-            IActionResult response = Unauthorized();
-            var user = new User().AuthenticateUser(Login);
-            if (user != null)
+           
+            var result = await _signInManager.PasswordSignInAsync(Login.Email, Login.Password, false, false);
+
+            if (result.Succeeded)
             {
-                var tokenString = GenerateJSONWebToken(user);
-                response = Ok(new { token = tokenString });
+                var appUser = _userManager.Users.SingleOrDefault(r => r.Email == Login.Email);
+                return await GenerateJwtToken(Login.Email, appUser);
+                //IActionResult response = Unauthorized();
+                //var user = new User().AuthenticateUser(Login);
+                //if (user != null)
+                //{
+                //    var tokenString = GenerateJSONWebToken(user);
+                //    response = Ok(new { token = tokenString });
+                //}
             }
-            return response;
+           
+            return null;
+        }
+        private async Task<object> GenerateJwtToken(string email, IdentityUser user)
+        {
+            var claims = new List<Claim>
+            {
+                new Claim(JwtRegisteredClaimNames.Sub, email),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            //var expires = DateTime.Now.AddDays(Convert.ToDouble(_config["JwtExpireDays"]));
+
+            var token = new JwtSecurityToken(
+                _config["Jwt:Issuer"],
+                _config["Jwt:Issuer"],
+                claims,
+                expires: DateTime.Now.AddMinutes(2),
+                //expires: expires,
+                signingCredentials: creds
+            );
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
         }
         private string GenerateJSONWebToken(User userInfo)
         {
@@ -61,7 +103,7 @@ namespace MyCoreAppAuth.Controllers
             var token = new JwtSecurityToken(_config["Jwt:Issuer"],
               _config["Jwt:Issuer"],
               claims,
-              expires: DateTime.Now.AddMinutes(120),
+              expires: DateTime.Now.AddMinutes(2),
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

@@ -14,6 +14,10 @@ using MyCoreAppAuth.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MySql.Data.EntityFrameworkCore.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace MyCoreAppAuth
 {
@@ -29,7 +33,44 @@ namespace MyCoreAppAuth
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
+            #region Authentication
+            services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            //jwt
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear(); // => remove default claims
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidAudience = Configuration["Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
+                };
+               });
+                ////////////services.AddAuthentication(options =>
+                ////////////    {
+                ////////////        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                ////////////        options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                ////////////        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+                ////////////    }).AddJwtBearer(cfg =>
+                ////////////    {
+                ////////////        cfg.RequireHttpsMetadata = false;
+                ////////////        cfg.SaveToken = true;
+                ////////////        cfg.TokenValidationParameters = new TokenValidationParameters
+                ////////////        {
+                ////////////            ValidIssuer = Configuration["JwtIssuer"],
+                ////////////            ValidAudience = Configuration["JwtIssuer"],
+                ////////////            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JwtKey"])),
+                ////////////            ClockSkew = TimeSpan.Zero // remove delay of token when expire
+                ////////////        };
+                ////////////    });
+                #endregion
+                services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
@@ -47,9 +88,9 @@ namespace MyCoreAppAuth
             //        Configuration.GetConnectionString("DefaultConnection")));
 
 
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddDefaultUI(UIFramework.Bootstrap4)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            //////////////services.AddDefaultIdentity<IdentityUser>()
+            //////////////    .AddDefaultUI(UIFramework.Bootstrap4)
+            //////////////    .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -85,7 +126,6 @@ namespace MyCoreAppAuth
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-
             app.UseAuthentication();
 
             app.UseMvc(routes =>

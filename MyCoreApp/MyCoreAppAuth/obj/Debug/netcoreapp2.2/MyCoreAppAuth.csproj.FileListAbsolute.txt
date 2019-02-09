@@ -30,3 +30,4 @@ E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAp
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\bin\Debug\netcoreapp2.2\MyCoreAppAuth.Views.pdb
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.csprojAssemblyReference.cache
 E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\MyCoreAppAuth.csproj.CopyComplete
+E:\myGit\DotNetCore-App\MyCoreApp\MyCoreAppAuth\obj\Debug\netcoreapp2.2\Razor\Views\Account\Login.g.cshtml.cs
