@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyCoreAppAuth.Models;
 
 namespace MyCoreAppAuth.Data
 {
@@ -12,5 +13,6 @@ namespace MyCoreAppAuth.Data
             : base(options)
         {
         }
+        public DbSet<MyCoreAppAuth.Models.User> User { get; set; }
     }
 }

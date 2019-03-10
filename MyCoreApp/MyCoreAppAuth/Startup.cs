@@ -91,6 +91,7 @@ namespace MyCoreAppAuth
             //////////////services.AddDefaultIdentity<IdentityUser>()
             //////////////    .AddDefaultUI(UIFramework.Bootstrap4)
             //////////////    .AddEntityFrameworkStores<ApplicationDbContext>();
+            
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -133,7 +134,17 @@ namespace MyCoreAppAuth
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+                    name: "Login",
+                    template: "{controller=Account}/{action=Login}");
+                routes.MapRoute(
+                    name: "Register",
+                    template: "{controller=Account}/{action=Register}");
+                routes.MapRoute(
+                    name: "Logout",
+                    template: "{controller=Account}/{action=Logout}");
             });
+
         }
     }
 }

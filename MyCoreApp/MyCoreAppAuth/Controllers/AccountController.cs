@@ -30,9 +30,9 @@ namespace MyCoreAppAuth.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(User user)
+        public async Task<IActionResult> Login(User user,string returnUrl="")
         {
-            var result = await _signInManager.PasswordSignInAsync(user.Email, user.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(user.UserName, user.Password, false, false);
 
             if (result.Succeeded)
             {
@@ -45,15 +45,51 @@ namespace MyCoreAppAuth.Controllers
                 //    var tokenString = GenerateJSONWebToken(user);
                 //    response = Ok(new { token = tokenString });
                 //}
-                return RedirectToAction("Index", "Home");
+                if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                    return Redirect(returnUrl);
+                else
+                    return RedirectToAction("Index", "Home");
             }
             return Content("Invalid Login");
         }
         [HttpGet]
-        public async Task<IActionResult> Logout(User user)
+        public ViewResult Register()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(User model,string returnUrl)
+        {
+            if(ModelState.IsValid)
+            {
+                var user = new Microsoft.AspNetCore.Identity.IdentityUser { UserName=model.UserName }; //identity user .netcore
+                var result = await _userManager.CreateAsync(user,model.Password);
+                if(result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user,false);
+                    if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                        return Redirect(returnUrl);
+                    else
+                        return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach(var error in result.Errors)
+                    {
+                        ModelState.AddModelError("",error.Description);
+                    }
+                }
+            }
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Logout(User user, string returnUrl = "")
         {
             await _signInManager.SignOutAsync();
-            return RedirectToAction("Index", "Home");
+            if (!String.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+            else
+                return RedirectToAction("Index", "Home");
         }
     }
 }

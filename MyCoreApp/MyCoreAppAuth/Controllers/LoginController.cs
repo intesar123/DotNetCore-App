@@ -89,7 +89,7 @@ namespace MyCoreAppAuth.Controllers
 
             var claims = new[]
             {
-                new Claim(JwtRegisteredClaimNames.Sub,userInfo.Name),
+                new Claim(JwtRegisteredClaimNames.Sub,userInfo.UserName),
                 new Claim(JwtRegisteredClaimNames.Email,userInfo.Email),
                 new Claim("Full Name",userInfo.FullName),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString())
